@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MusicPlayerVinyls.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:MusicPlayerVinyls.Converters"
+    xmlns:magic="http://magic.com/schemas/gradients"
+    xmlns:viewModels="clr-namespace:MusicPlayerVinyls.ViewModels">
+    <ContentPage.BindingContext>
+        <viewModels:MainViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <converters:RatioConverter
+                x:Key="vinylTranslation"
+                Default="50"
+                Inverted="True"
+                Max="50"
+                Min="0"
+                Ratio=".5"
+                UseAbsolute="True" />
+
+            <converters:RatioConverter
+                x:Key="vinylRotation"
+                Default="0"
+                Inverted="True"
+                Max="50"
+                Min="-50"
+                Ratio="1"
+                UseAbsolute="True" />
+
+
+            <converters:RatioConverter
+                x:Key="albumTranslation"
+                Default="-50"
+                Inverted="True"
+                Max="0"
+                Min="-50"
+                Ratio="-.5"
+                UseAbsolute="True" />
+
+            <converters:RatioConverter
+                x:Key="albumScaleTranslation"
+                Default="1.1"
+                Inverted="True"
+                Max="1.1"
+                Min="1"
+                Ratio=".005"
+                UseAbsolute="True" />
+
+            <converters:RatioConverter
+                x:Key="panelTranslation"
+                Default="0"
+                Max="150"
+                Min="-150"
+                Ratio="1" />
+
+            <converters:RatioConverter
+                x:Key="panelRotationTranslation"
+                Default="0"
+                Inverted="True"
+                Max="10"
+                Min="-10"
+                Ratio=".1" />
+
+            <converters:RatioConverter
+                x:Key="panelScaleTranslation"
+                Default="1"
+                Inverted="True"
+                Max="1"
+                Min=".5"
+                Ratio=".001"
+                UseAbsolute="True" />
+
+
+
+
+
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions=".4*, 10, .6*, 60" RowSpacing="0">
+
+
+
+        <BoxView
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            Color="#ECECEC" />
+
+
+        <BoxView
+            Grid.Row="2"
+            CornerRadius="0,0,0,40"
+            Color="#F5F5F5" />
+
+        <Grid
+            Grid.Row="2"
+            RotationY="{Binding PanValue, Converter={StaticResource panelRotationTranslation}}"
+            Scale="{Binding PanValue, Converter={StaticResource panelScaleTranslation}}"
+            TranslationX="{Binding PanValue, Converter={StaticResource panelTranslation}}">
+            <BoxView
+                Margin="20,0,20,20"
+                CornerRadius="0,0,20,20"
+                Color="White" />
+            <Label Margin="40" Text="Where is it? i saw that bird i need to bring it home to mommy squirrel! relentlessly pursues moth yet scratch the furniture and look at dog hiiiiiisssss catasstrophe experiences short bursts of poo-phoria after going to the loo yet sit on human. Jump off balcony, onto stranger's head stare at ceiling, and leave fur on owners clothes so i like frogs and 0 gravity yet soft kitty warm kitty little ball of furr and i vomit in the bed in the middle of the night or knock dish off table head butt cant eat out of my own dish. " />
+            <Image
+                HeightRequest="60"
+                HorizontalOptions="Center"
+                Source="AlbumCover"
+                VerticalOptions="Center"
+                WidthRequest="60" />
+        </Grid>
+
+
+        <magic:GradientView
+            Grid.Row="2"
+            HeightRequest="30"
+            VerticalOptions="Start">
+            <magic:LinearGradient>
+                <magic:GradientStop Color="#CDCDCD" />
+                <magic:GradientStop Color="Transparent" />
+            </magic:LinearGradient>
+        </magic:GradientView>
+
+        <magic:GradientView Grid.Row="0">
+            <magic:LinearGradient>
+                <magic:GradientStop Color="#EFEFEF" />
+                <magic:GradientStop Color="White" />
+            </magic:LinearGradient>
+        </magic:GradientView>
+
+        <BoxView Grid.Row="1" Color="#ECECEC" />
+
+        <Image
+            Margin="0,0,0,50"
+            HeightRequest="50"
+            Rotation="{Binding PanValue, Converter={StaticResource vinylRotation}}"
+            Scale="{Binding PanValue, Converter={StaticResource albumScaleTranslation}}"
+            Source="AlbumCover"
+            TranslationX="{Binding PanValue, Converter={StaticResource vinylTranslation}}"
+            TranslationY="-10"
+            VerticalOptions="End"
+            WidthRequest="50" />
+
+        <Image
+            HeightRequest="150"
+            Scale="{Binding PanValue, Converter={StaticResource albumScaleTranslation}}"
+            Source="Vinyl"
+            TranslationX="{Binding PanValue, Converter={StaticResource vinylTranslation}}"
+            TranslationY="-10"
+            VerticalOptions="End"
+            WidthRequest="150" />
+
+        <Image
+            HeightRequest="150"
+            Scale="{Binding PanValue, Converter={StaticResource albumScaleTranslation}}"
+            Source="AlbumCover"
+            TranslationX="{Binding PanValue, Converter={StaticResource albumTranslation}}"
+            TranslationY="-10"
+            VerticalOptions="End"
+            WidthRequest="150" />
+
+
+
+        <Frame Grid.Row="2" BackgroundColor="Transparent">
+            <Frame.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
+            </Frame.GestureRecognizers>
+        </Frame>
+
+
+
+
+    </Grid>
+
+
+</ContentPage>
