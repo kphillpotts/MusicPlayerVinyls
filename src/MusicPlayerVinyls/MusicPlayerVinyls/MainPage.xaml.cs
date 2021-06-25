@@ -1,4 +1,5 @@
-﻿using MusicPlayerVinyls.ViewModels;
+﻿using MusicPlayerVinyls.Controls;
+using MusicPlayerVinyls.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,34 +17,52 @@ namespace MusicPlayerVinyls
             InitializeComponent();
         }
 
-        private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
+        private void AlbumDetailsView_UserInteracted(PanCardView.CardsView view, PanCardView.EventArgs.UserInteractedEventArgs args)
         {
-            switch (e.StatusType)
+            switch (args.Status)
             {
-                case GestureStatus.Started:
+                case PanCardView.Enums.UserInteractionStatus.Started:
                     break;
-                case GestureStatus.Running:
-                    ((MainViewModel)this.BindingContext).PanValue = e.TotalX;
+                case PanCardView.Enums.UserInteractionStatus.Running:
+                    // make the top view expand or collapse
+                    var albumView = ArtCarousel.CurrentView as AlbumArtView;
+                    albumView.PanAmount = args.Diff;
                     break;
-                case GestureStatus.Completed:
-                    AnimateToZero();
+                case PanCardView.Enums.UserInteractionStatus.Ending:
                     break;
-                case GestureStatus.Canceled:
+                case PanCardView.Enums.UserInteractionStatus.Ended:
                     break;
             }
         }
 
-        private void AnimateToZero()
-        {
-            var vm = ((MainViewModel)this.BindingContext);
-            var start = vm.PanValue;
-            var end = 0;
+        //private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
+        //{
+        //    switch (e.StatusType)
+        //    {
+        //        case GestureStatus.Started:
+        //            break;
+        //        case GestureStatus.Running:
+        //            ((MainViewModel)this.BindingContext).PanValue = e.TotalX;
+        //            break;
+        //        case GestureStatus.Completed:
+        //            AnimateToZero();
+        //            break;
+        //        case GestureStatus.Canceled:
+        //            break;
+        //    }
+        //}
 
-            var movement = new Animation((v) => vm.PanValue = v, start, end, Easing.SpringOut);
+        //private void AnimateToZero()
+        //{
+        //    var vm = ((MainViewModel)this.BindingContext);
+        //    var start = vm.PanValue;
+        //    var end = 0;
 
-            var animation = new Animation();
-            animation.Add(0, 1, movement);
-            animation.Commit(this, "ZeroAnimation", 16, 400);
-        }
+        //    var movement = new Animation((v) => vm.PanValue = v, start, end, Easing.SpringOut);
+
+        //    var animation = new Animation();
+        //    animation.Add(0, 1, movement);
+        //    animation.Commit(this, "ZeroAnimation", 16, 400);
+        //}
     }
 }

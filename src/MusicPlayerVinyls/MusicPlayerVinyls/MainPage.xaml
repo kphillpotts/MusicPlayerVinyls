@@ -3,15 +3,19 @@
     x:Class="MusicPlayerVinyls.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
     xmlns:converters="clr-namespace:MusicPlayerVinyls.Converters"
     xmlns:magic="http://magic.com/schemas/gradients"
-    xmlns:viewModels="clr-namespace:MusicPlayerVinyls.ViewModels">
+    xmlns:models="clr-namespace:MusicPlayerVinyls.Models"
+    xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
+    xmlns:viewModels="clr-namespace:MusicPlayerVinyls.ViewModels"
+    xmlns:views="clr-namespace:MusicPlayerVinyls.Controls">
     <ContentPage.BindingContext>
         <viewModels:MainViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Resources>
-        <ResourceDictionary>
+        <!--<ResourceDictionary>
 
             <converters:RatioConverter
                 x:Key="vinylTranslation"
@@ -79,29 +83,116 @@
 
 
 
-        </ResourceDictionary>
+        </ResourceDictionary>-->
     </ContentPage.Resources>
 
-    <Grid RowDefinitions=".4*, 10, .6*, 60" RowSpacing="0">
+    <Grid RowDefinitions="AUTO, AUTO, .3*, 10, .6*, 60" RowSpacing="0">
 
-
+        <!--  top gradient  -->
+        <magic:GradientView Grid.Row="0" Grid.RowSpan="3">
+            <magic:LinearGradient>
+                <magic:GradientStop Color="#EFEFEF" />
+                <magic:GradientStop Color="White" />
+            </magic:LinearGradient>
+        </magic:GradientView>
 
         <BoxView
-            Grid.Row="2"
+            Grid.Row="4"
             Grid.RowSpan="2"
             Color="#ECECEC" />
 
-
         <BoxView
-            Grid.Row="2"
+            Grid.Row="4"
             CornerRadius="0,0,0,40"
             Color="#F5F5F5" />
 
-        <Grid
+        <!--  toolbar  -->
+        <Grid Margin="10" ColumnDefinitions="*, Auto, Auto">
+            <Image HorizontalOptions="Start" Source="BackArrow" />
+            <Image
+                Grid.Column="1"
+                Margin="0,0,20,0"
+                Source="Search" />
+            <Image
+                Grid.Column="2"
+                HorizontalOptions="Start"
+                Source="Collection" />
+        </Grid>
+
+
+        <!--  header  -->
+        <!--<StackLayout Grid.Row="1" Orientation="Horizontal">
+            <Label Style="{StaticResource LightH1}" Text="My" />
+            <Label Style="{StaticResource BoldH1}" Text="Library" />
+        </StackLayout>-->
+
+        <Label Grid.Row="1" Margin="20,0,0,0">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Style="{StaticResource LightH1}" Text="My " />
+                    <Span Style="{StaticResource BoldH1}" Text="Library" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <!--  top carousel  -->
+        <cards:CoverFlowView
+            x:Name="ArtCarousel"
             Grid.Row="2"
-            RotationY="{Binding PanValue, Converter={StaticResource panelRotationTranslation}}"
-            Scale="{Binding PanValue, Converter={StaticResource panelScaleTranslation}}"
-            TranslationX="{Binding PanValue, Converter={StaticResource panelTranslation}}">
+            ItemsSource="{Binding Albums}"
+            SelectedIndex="{Binding Source={x:Reference AlbumDetailsView}, Path=SelectedIndex}">
+            <cards:CoverFlowView.ItemTemplate>
+                <DataTemplate x:DataType="models:Album">
+                    <views:AlbumArtView />
+                </DataTemplate>
+            </cards:CoverFlowView.ItemTemplate>
+        </cards:CoverFlowView>
+
+        <!--  shelf  -->
+        <BoxView Grid.Row="3" Color="#ECECEC" />
+
+
+
+        <!--  bottom carousel  -->
+        <cards:CoverFlowView
+            x:Name="AlbumDetailsView"
+            Grid.Row="4"
+            ItemsSource="{Binding Albums}"
+            PositionShiftValue="-150"
+            UserInteracted="AlbumDetailsView_UserInteracted">
+
+            <x:Arguments>
+                <proc:CoverFlowProcessor RotationYFactor="0.02" ScaleFactor="0.5" />
+            </x:Arguments>
+
+            <cards:CoverFlowView.ItemTemplate>
+                <DataTemplate x:DataType="models:Album">
+                    <views:AlbumDetailsView />
+                </DataTemplate>
+            </cards:CoverFlowView.ItemTemplate>
+        </cards:CoverFlowView>
+
+        <magic:GradientView
+            Grid.Row="4"
+            HeightRequest="30"
+            VerticalOptions="Start">
+            <magic:LinearGradient>
+                <magic:GradientStop Color="#CDCDCD" />
+                <magic:GradientStop Color="Transparent" />
+            </magic:LinearGradient>
+        </magic:GradientView>
+
+
+        <!--  bottom button bar  -->
+        <!--<BoxView Grid.Row="5" Color="LightGreen" />-->
+
+
+
+
+
+
+
+        <!--<Grid Grid.Row="2">
             <BoxView
                 Margin="20,0,20,20"
                 CornerRadius="0,0,20,20"
@@ -113,64 +204,43 @@
                 Source="AlbumCover"
                 VerticalOptions="Center"
                 WidthRequest="60" />
-        </Grid>
+        </Grid>-->
 
 
-        <magic:GradientView
-            Grid.Row="2"
-            HeightRequest="30"
-            VerticalOptions="Start">
-            <magic:LinearGradient>
-                <magic:GradientStop Color="#CDCDCD" />
-                <magic:GradientStop Color="Transparent" />
-            </magic:LinearGradient>
-        </magic:GradientView>
 
-        <magic:GradientView Grid.Row="0">
-            <magic:LinearGradient>
-                <magic:GradientStop Color="#EFEFEF" />
-                <magic:GradientStop Color="White" />
-            </magic:LinearGradient>
-        </magic:GradientView>
 
-        <BoxView Grid.Row="1" Color="#ECECEC" />
 
-        <Image
+
+
+        <!--<Image
             Margin="0,0,0,50"
             HeightRequest="50"
-            Rotation="{Binding PanValue, Converter={StaticResource vinylRotation}}"
-            Scale="{Binding PanValue, Converter={StaticResource albumScaleTranslation}}"
             Source="AlbumCover"
-            TranslationX="{Binding PanValue, Converter={StaticResource vinylTranslation}}"
             TranslationY="-10"
             VerticalOptions="End"
-            WidthRequest="50" />
+            WidthRequest="50" />-->
 
-        <Image
+        <!--<Image
             HeightRequest="150"
-            Scale="{Binding PanValue, Converter={StaticResource albumScaleTranslation}}"
             Source="Vinyl"
-            TranslationX="{Binding PanValue, Converter={StaticResource vinylTranslation}}"
             TranslationY="-10"
             VerticalOptions="End"
-            WidthRequest="150" />
+            WidthRequest="150" />-->
 
-        <Image
+        <!--<Image
             HeightRequest="150"
-            Scale="{Binding PanValue, Converter={StaticResource albumScaleTranslation}}"
             Source="AlbumCover"
-            TranslationX="{Binding PanValue, Converter={StaticResource albumTranslation}}"
             TranslationY="-10"
             VerticalOptions="End"
-            WidthRequest="150" />
+            WidthRequest="150" />-->
 
 
 
-        <Frame Grid.Row="2" BackgroundColor="Transparent">
+        <!--<Frame Grid.Row="2" BackgroundColor="Transparent">
             <Frame.GestureRecognizers>
                 <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
             </Frame.GestureRecognizers>
-        </Frame>
+        </Frame>-->
 
 
 

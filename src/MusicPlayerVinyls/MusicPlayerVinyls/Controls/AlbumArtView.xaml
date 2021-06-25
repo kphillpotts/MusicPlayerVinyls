@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="MusicPlayerVinyls.Controls.AlbumArtView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:MusicPlayerVinyls.Models"
+    x:DataType="models:Album">
+    <Grid>
+        <Image
+            x:Name="VinylCenterView"
+            HeightRequest="50"
+            HorizontalOptions="Center"
+            Source="{Binding AlbumArt}"
+            TranslationX="100"
+            TranslationY="-50"
+            VerticalOptions="End"
+            WidthRequest="50" />
+
+        <Image
+            x:Name="VinylImageView"
+            HeightRequest="150"
+            HorizontalOptions="Center"
+            Source="Vinyl"
+            TranslationX="100"
+            VerticalOptions="End"
+            WidthRequest="150" />
+        <Image
+            x:Name="AlbumArtImageView"
+            HeightRequest="150"
+            HorizontalOptions="Center"
+            Source="{Binding AlbumArt}"
+            VerticalOptions="End"
+            WidthRequest="150" />
+
+
+    </Grid>
+
+</ContentView>

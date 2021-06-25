@@ -1,8 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MusicPlayerVinyls.App">
+<Application
+    x:Class="MusicPlayerVinyls.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Application.Resources>
+
+        <Style x:Key="BoldHeader" TargetType="Label">
+            <Setter Property="FontFamily" Value="BoldHeaderFont" />
+        </Style>
+
+        <Style x:Key="LightHeader" TargetType="Label">
+            <Setter Property="FontFamily" Value="LightHeaderFont" />
+        </Style>
+
+        <Style x:Key="Body" TargetType="Label">
+            <Setter Property="FontFamily" Value="BodyRegularFont" />
+        </Style>
+
+        <Style
+            x:Key="BoldH1"
+            BasedOn="{StaticResource BoldHeader}"
+            TargetType="Label">
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+
+
+        <Style
+            x:Key="LightH1"
+            BasedOn="{StaticResource LightHeader}"
+            TargetType="Label">
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+
+        <Style
+            x:Key="BoldH2"
+            BasedOn="{StaticResource BoldHeader}"
+            TargetType="Label">
+            <Setter Property="FontSize" Value="36" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+
+        <Style
+            x:Key="BoldH3"
+            BasedOn="{StaticResource BoldHeader}"
+            TargetType="Label">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+
+        <Style
+            x:Key="BodyLight"
+            BasedOn="{StaticResource Body}"
+            TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="DarkGray" />
+        </Style>
+
+        <Style
+            x:Key="BodyDark"
+            BasedOn="{StaticResource Body}"
+            TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+
 
     </Application.Resources>
 </Application>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="MusicPlayerVinyls.Controls.AlbumDetailsView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:MusicPlayerVinyls.Models"
+    x:DataType="models:Album">
+
+    <Grid Padding="20,0,20,20" RowDefinitions="Auto, Auto, Auto, *, Auto">
+        <BoxView
+            Grid.RowSpan="5"
+            Background="White"
+            CornerRadius="0,0,20,20" />
+
+        <!--  header  -->
+        <Label
+            Margin="20,20,20,0"
+            Style="{StaticResource BoldH3}"
+            Text="Album" />
+        <StackLayout
+            Margin="20,20,20,0"
+            HorizontalOptions="End"
+            Orientation="Horizontal">
+            <Label Text="{Binding Rating}" />
+        </StackLayout>
+
+        <!--  album name  -->
+        <Label
+            Grid.Row="1"
+            Margin="20,0,0,0"
+            Style="{StaticResource BoldH3}"
+            Text="{Binding AlbumName}" />
+
+        <StackLayout Grid.Row="2" Margin="20,20">
+            <StackLayout Orientation="Horizontal">
+                <Label Style="{StaticResource BodyLight}" Text="By" />
+                <Label Style="{StaticResource BodyDark}" Text="{Binding ArtistName}" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Style="{StaticResource BodyLight}" Text="{Binding AlbumYear}" />
+                <Label Style="{StaticResource BodyLight}" Text="•" />
+                <Label Style="{StaticResource BodyLight}" Text="{Binding SongCount, StringFormat='{0} songs'}" />
+                <Label Style="{StaticResource BodyLight}" Text="•" />
+                <Label Style="{StaticResource BodyLight}" Text="{Binding Duration, StringFormat='{0} min'}" />
+            </StackLayout>
+        </StackLayout>
+
+        <Label
+            Grid.Row="3"
+            Margin="20,0"
+            Style="{StaticResource BodyLight}"
+            Text="{Binding AlbumNotes}" />
+
+        <!--  tags  -->
+        <StackLayout
+            Grid.Row="4"
+            Margin="10"
+            BindableLayout.ItemsSource="{Binding Tags}"
+            Orientation="Horizontal"
+            VerticalOptions="End">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="models:Tag">
+                    <Frame
+                        Padding="10,5,10,5"
+                        BackgroundColor="#EEEEEE"
+                        CornerRadius="5"
+                        HasShadow="False">
+                        <Label Text="{Binding Name}" />
+                    </Frame>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+
+
+
+    </Grid>
+
+</ContentView>
