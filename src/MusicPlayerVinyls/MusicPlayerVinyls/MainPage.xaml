@@ -117,6 +117,7 @@
                 Grid.Column="2"
                 HorizontalOptions="Start"
                 Source="Collection" />
+
         </Grid>
 
 
@@ -182,68 +183,56 @@
             </magic:LinearGradient>
         </magic:GradientView>
 
-
-        <!--  bottom button bar  -->
-        <!--<BoxView Grid.Row="5" Color="LightGreen" />-->
-
-
-
+        <Grid
+            Grid.Row="5"
+            Margin="20,0"
+            ColumnDefinitions="Auto, *, 40, 40">
 
 
-
-
-        <!--<Grid Grid.Row="2">
-            <BoxView
-                Margin="20,0,20,20"
-                CornerRadius="0,0,20,20"
-                Color="White" />
-            <Label Margin="40" Text="Where is it? i saw that bird i need to bring it home to mommy squirrel! relentlessly pursues moth yet scratch the furniture and look at dog hiiiiiisssss catasstrophe experiences short bursts of poo-phoria after going to the loo yet sit on human. Jump off balcony, onto stranger's head stare at ceiling, and leave fur on owners clothes so i like frogs and 0 gravity yet soft kitty warm kitty little ball of furr and i vomit in the bed in the middle of the night or knock dish off table head butt cant eat out of my own dish. " />
-            <Image
-                HeightRequest="60"
+            <views:CircularProgress
+                HeightRequest="50"
                 HorizontalOptions="Center"
-                Source="AlbumCover"
                 VerticalOptions="Center"
-                WidthRequest="60" />
-        </Grid>-->
+                WidthRequest="50"
+                Value="{Binding PlayPercent}" />
+
+            <Image
+                HeightRequest="40"
+                HorizontalOptions="Center"
+                Source="{Binding Albums[0].AlbumArt}"
+                VerticalOptions="Center"
+                WidthRequest="40">
+                <Image.Clip>
+                    <EllipseGeometry
+                        Center="20,20"
+                        RadiusX="20"
+                        RadiusY="20" />
+                </Image.Clip>
+            </Image>
+
+            <StackLayout
+                Grid.Column="1"
+                Margin="10,0"
+                Orientation="Vertical"
+                Spacing="0"
+                VerticalOptions="Center">
+                <Label Text="Dollar Day" Style="{StaticResource BodyDark}" />
+                <Label Text="David Bowie" Style="{StaticResource BodyLight}"
+                       FontSize="14"/>
+            </StackLayout>
 
 
-
-
-
-
-
-        <!--<Image
-            Margin="0,0,0,50"
-            HeightRequest="50"
-            Source="AlbumCover"
-            TranslationY="-10"
-            VerticalOptions="End"
-            WidthRequest="50" />-->
-
-        <!--<Image
-            HeightRequest="150"
-            Source="Vinyl"
-            TranslationY="-10"
-            VerticalOptions="End"
-            WidthRequest="150" />-->
-
-        <!--<Image
-            HeightRequest="150"
-            Source="AlbumCover"
-            TranslationY="-10"
-            VerticalOptions="End"
-            WidthRequest="150" />-->
-
-
-
-        <!--<Frame Grid.Row="2" BackgroundColor="Transparent">
-            <Frame.GestureRecognizers>
-                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated" />
-            </Frame.GestureRecognizers>
-        </Frame>-->
-
-
-
+            <Image
+                Grid.Column="2"
+                HorizontalOptions="Center"
+                Source="PlayButton"
+                VerticalOptions="Center" />
+            <Image
+                Grid.Column="3"
+                HorizontalOptions="Center"
+                Source="PlaylistButton"
+                VerticalOptions="Center" />
+        </Grid>
 
     </Grid>
 

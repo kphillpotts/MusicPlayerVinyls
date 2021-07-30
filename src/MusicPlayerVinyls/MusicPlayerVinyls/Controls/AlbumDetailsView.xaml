@@ -3,6 +3,7 @@
     x:Class="MusicPlayerVinyls.Controls.AlbumDetailsView"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:MusicPlayerVinyls.Controls"
     xmlns:models="clr-namespace:MusicPlayerVinyls.Models"
     x:DataType="models:Album">
 
@@ -16,12 +17,20 @@
         <Label
             Margin="20,20,20,0"
             Style="{StaticResource BoldH3}"
-            Text="Album" />
+            Text="Album"
+            VerticalOptions="Center" />
         <StackLayout
             Margin="20,20,20,0"
             HorizontalOptions="End"
-            Orientation="Horizontal">
-            <Label Text="{Binding Rating}" />
+            Orientation="Horizontal"
+            Spacing="10">
+            <controls:Rating
+                Max="5"
+                Spacing="10"
+                VerticalOptions="Center"
+                WidthRequest="60"
+                Value="{Binding Rating}" />
+            <Label Text="{Binding Rating, StringFormat='{0:0.0}'}" VerticalOptions="Center" />
         </StackLayout>
 
         <!--  album name  -->

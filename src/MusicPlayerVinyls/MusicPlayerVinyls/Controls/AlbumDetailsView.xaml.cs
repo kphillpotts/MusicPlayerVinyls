@@ -16,5 +16,7 @@ namespace MusicPlayerVinyls.Controls
         {
             InitializeComponent();
         }
+
+
     }
 }

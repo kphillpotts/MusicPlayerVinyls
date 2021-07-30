@@ -3,15 +3,27 @@ using MvvmHelpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Timers;
 
 namespace MusicPlayerVinyls.ViewModels  
 {
     public class MainViewModel : BaseViewModel
     {
+        private int playPercent;
+
         public ObservableRangeCollection<Album> Albums { get; set; }
+
+        public int PlayPercent { 
+            get => playPercent; 
+            set => SetProperty(ref playPercent, value); 
+        }
 
         public MainViewModel()
         {
+            Timer t = new Timer(500);
+            t.Elapsed += T_Elapsed;
+            t.Start();
+
             Albums = new ObservableRangeCollection<Album>();
 
             Albums.Add(new Album()
@@ -25,8 +37,8 @@ namespace MusicPlayerVinyls.ViewModels
                 Rating = 4.9,
                 SongCount = 8,
                 Tags = new List<Tag>() { new Tag { Name = "Punk" },
-                    new Tag { Name = "Classic Rock" }, new Tag { Name = "Art Rock" } } 
-                });
+                    new Tag { Name = "Classic Rock" }, new Tag { Name = "Art Rock" } }
+            });
 
             Albums.Add(new Album()
             {
@@ -36,7 +48,7 @@ namespace MusicPlayerVinyls.ViewModels
                 AlbumNotes = "Songs in the Key of Life is the eighteenth studio album by American singer, songwriter and musician Stevie Wonder. It was released on September 28, 1976 by Tamla Records, a division of Motown. The double album has been regarded by music journalists as the culmination of Wonder's 'classic period' of recording.",
                 AlbumYear = "1976",
                 Duration = "104",
-                Rating = 4.9,
+                Rating = 3.6,
                 SongCount = 17,
                 Tags = new List<Tag>() { new Tag { Name = "Motown" },
                     new Tag { Name = "Soul" }}
@@ -50,10 +62,18 @@ namespace MusicPlayerVinyls.ViewModels
                 AlbumNotes = "The Number of the Beast is the third studio album by English heavy metal band Iron Maiden. It was released on 22 March 1982 in the United Kingdom by EMI Records and in the United States by Harvest and Capitol Records. The album was their first to feature vocalist Bruce Dickinson and their last with drummer Clive Burr.",
                 AlbumYear = "1982",
                 Duration = "39",
-                Rating = 4.9,
+                Rating = 2.5,
                 SongCount = 8,
-                Tags = new List<Tag>() { new Tag { Name = "Heavy Metal" }}
+                Tags = new List<Tag>() { new Tag { Name = "Heavy Metal" } }
             });
+        }
+
+        private void T_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            var val = PlayPercent + 1;
+            if (val > 100)
+                val = 0;
+            PlayPercent = val;
         }
     }
 }

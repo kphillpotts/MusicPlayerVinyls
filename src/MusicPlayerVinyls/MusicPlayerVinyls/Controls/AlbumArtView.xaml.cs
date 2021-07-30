@@ -19,6 +19,10 @@ namespace MusicPlayerVinyls.Controls
             InitializeComponent();
         }
 
+
+
+
+
         public double PanAmount
         {
             get => panAmount;
